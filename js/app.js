@@ -1,11 +1,11 @@
 //Create a list that holds all of your cards
 let deck = document.querySelector(".deck");
 let card = document.getElementsByClassName("card");
-let cards = [...card];
+let cardsArray = [...card];
 
 //arrays to hold matching and non-matching cards
-let openedCards = []; 
-let matchedCards = []; 
+let openedCardsArray = []; 
+let matchedCardsArray = []; 
 
 //display the card's symbol (put this functionality in another function that you call from this one)
 let flipCard = function () {
@@ -14,9 +14,8 @@ let flipCard = function () {
 }
 
 //set up the event listener for a card. If a card is clicked:
-for (let i = 0; i < cards.length; i++){
-    card = cards[i];
-    cards[i].addEventListener("click", flipCard);
+for (let i = 0; i < cardsArray.length; i++){
+    cardsArray[i].addEventListener("click", flipCard);
 };
 
 /*
@@ -43,10 +42,10 @@ function shuffle(array) {
 
 //put shuffled cards on deck
 function shuffle2 () {
-    let shuffledCards = shuffle(cards);
+    let shuffledCards = shuffle(cardsArray);
     let deck = document.querySelector(".deck");
-    for (let i = 0; i < cards.length; i++) {
-        cards[i].parentNode.removeChild(cards[i]);
+    for (let i = 0; i < cardsArray.length; i++) {
+        cardsArray[i].parentNode.removeChild(cardsArray[i]);
     }
     for (let c = 0; c < shuffledCards.length; c++) {
         deck.appendChild(shuffledCards[c]);
@@ -58,39 +57,43 @@ window.onload = shuffle2();
 //add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
 //if the list already has another card, check to see if the two cards match
 //if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
-deck.addEventListener("click", function(event) {
-    let clickedElem = event.target;
-    if (event.target.classList.contains('card') && openedCards.length < 2) {
-        flippedCardsFunc(event);
-    }   else if (openedCards[0] === openedCards[1]) {
-        matched ();
-        } else if (openedCards[0] !== openedCards[1] && openedCards.length === 2) {
-            removeOpenedClasses();
-            card.classList.addClass("disabled");
-        }
-  });
+//if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+deck.addEventListener("click", function (event) {
+    if (event.target.classList.contains('card') && openedCardsArray.length < 2) {
+        addToListOpenedCards(event);
+    }
+    if (openedCardsArray.length === 2) {
+        if (openedCardsArray[0].children[0].className === openedCardsArray[1].children[0].className) {
+            trackMatchedCards();
+        } else {
+            //timer slows down flipping of the card
+            setTimeout(function flipCardsBackOver() {
+                removeOpenedClasses();
+            }, 1000);
 
-function flippedCardsFunc (event) {
-    openedCards.push(event.target);
+        }
+    }
+});
+
+function addToListOpenedCards (event) {
+    openedCardsArray.push(event.target);
 }
 
 function removeOpenedClasses () {
-    openedCards[0].classList.remove("open", "show");
-    openedCards[1].classList.remove("open", "show");
-    openedCards = [];
+    openedCardsArray[0].classList.remove("open", "show");
+    openedCardsArray[1].classList.remove("open", "show");
+    openedCardsArray = [];
 }
 
-function matched () {
-    openedCards[0].classList.add("match", "disabled");
-    openedCards[1].classList.add("match", "disabled");
-    openedCards[0].classList.remove("show", "open");
-    openedCards[1].classList.remove("show", "open");
-    openedCards[0].push(matchedCards);
-    openedCards[1].push(matchedCards);
-    openedCards = [];
+function trackMatchedCards () {
+    openedCardsArray[0].classList.add("match", "disabled");
+    openedCardsArray[1].classList.add("match", "disabled");
+    openedCardsArray[0].classList.remove("show", "open");
+    openedCardsArray[1].classList.remove("show", "open");
+    matchedCardsArray.push(openedCardsArray[0]);
+    matchedCardsArray.push(openedCardsArray[1]);
+    openedCardsArray = [];
 }
-
-//if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
 
 
 //increment the move counter and display it on the page (put this functionality in another function that you call from this one)
