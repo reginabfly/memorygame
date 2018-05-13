@@ -7,17 +7,6 @@ let cardsArray = [...card];
 let openedCardsArray = []; 
 let matchedCardsArray = []; 
 
-//display the card's symbol (put this functionality in another function that you call from this one)
-let flipCard = function () {
-    this.classList.toggle("open");
-    this.classList.toggle("show");
-}
-
-//set up the event listener for a card. If a card is clicked:
-for (let i = 0; i < cardsArray.length; i++){
-    cardsArray[i].addEventListener("click", flipCard);
-};
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -41,7 +30,7 @@ function shuffle(array) {
 }
 
 //put shuffled cards on deck
-function shuffle2 () {
+function putShuffledCardsOnDeck () {
     let shuffledCards = shuffle(cardsArray);
     let deck = document.querySelector(".deck");
     for (let i = 0; i < cardsArray.length; i++) {
@@ -52,13 +41,21 @@ function shuffle2 () {
         }
 };
 
-window.onload = shuffle2();
+window.onload = putShuffledCardsOnDeck();
 
 //add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
 //if the list already has another card, check to see if the two cards match
 //if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
 //if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
-deck.addEventListener("click", function (event) {
+
+//display the card's symbol (put this functionality in another function that you call from this one)
+function flipCard (theCardSelected) {
+    theCardSelected.classList.toggle("open");
+    theCardSelected.classList.toggle("show");
+}
+
+function cardEventListener (event) {
+    flipCard(event.target);
     if (event.target.classList.contains('card') && openedCardsArray.length < 2) {
         addToListOpenedCards(event);
     }
@@ -67,13 +64,23 @@ deck.addEventListener("click", function (event) {
             trackMatchedCards();
         } else {
             //timer slows down flipping of the card
+            for (let i = 0; i < cardsArray.length; i++){
+                cardsArray[i].removeEventListener("click", cardEventListener);
+            };
             setTimeout(function flipCardsBackOver() {
                 removeOpenedClasses();
+                for (let i = 0; i < cardsArray.length; i++){
+                    cardsArray[i].addEventListener("click", cardEventListener);
+                };
             }, 1000);
-
         }
     }
-});
+};
+
+//set up the event listener for a card. If a card is clicked:
+for (let i = 0; i < cardsArray.length; i++){
+    cardsArray[i].addEventListener("click", cardEventListener);
+};
 
 function addToListOpenedCards (event) {
     openedCardsArray.push(event.target);
