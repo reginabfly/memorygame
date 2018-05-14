@@ -112,3 +112,12 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Styles for Stars
+ */
+
+.noshowStars {
+	pointer-events: none;
+	visibility: hidden;
+}

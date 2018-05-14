@@ -1,7 +1,11 @@
 //Create a list that holds all of your cards
 let card = document.getElementsByClassName("card");
 let cardsArray = [...card];
+
+//additional declarations for functions
 let moves = 0;
+let stars = document.getElementsByClassName("star");
+let starsArray = document.querySelectorAll(".stars li");
 
 //arrays to hold matching and non-matching cards
 let openedCardsArray = [];
@@ -98,8 +102,8 @@ function removeOpenedClasses() {
 }
 
 function trackMatchedCards() {
-    openedCardsArray[0].classList.add("match", "disabled");
-    openedCardsArray[1].classList.add("match", "disabled");
+    openedCardsArray[0].classList.add("match", "noshowStar");
+    openedCardsArray[1].classList.add("match", "noshowStar");
     openedCardsArray[0].classList.remove("show", "open");
     openedCardsArray[1].classList.remove("show", "open");
     matchedCardsArray.push(openedCardsArray[0]);
@@ -113,21 +117,35 @@ function increaseMoveCounterFunc () {
     document.querySelector("span").textContent = moves;
 }
 
-let starsArray = document.querySelectorAll(".stars li");
 //remove stars as move counter increases
 function starsDisplayChange () {
 if (moves <= 12) {
     //display 3 stars
     } else if (moves > 12 && moves <= 20) {
         //display 2 stars
-        let stars = document.getElementsByClassName("star");
-        starsArray[0].remove(stars);
+        starsArray[0].classList.add("noshowStar");
     } else {
         //display 1 star
-        let stars = document.getElementsByClassName("star");
-        starsArray[0].remove(stars);
-        starsArray[1].remove(stars);
+        starsArray[0].classList.add("noshowStar");
+        starsArray[1].classList.add("noshowStar");
     }
+}
+
+//reset deck, openCardsArray, matchedCardsArray, timer, moves and stars when user clicks reset button
+document.querySelector(".restart").addEventListener("click", resetGame);
+function resetGame() {
+    //put all stars back
+    starsArray[0].classList.remove("noshowStar");
+    starsArray[1].classList.remove("noshowStar");
+    starsArray[2].classList.remove("noshowStar");
+    //reset moves counter
+    moves = 0;
+    document.querySelector("span").textContent = moves;
+    //set arrays back to empty
+    matchedCardsArray = [];
+    openedCardsArray = [];
+    //turn over all cards
+    cardsArray.classList.remove("open", "show");
 }
 
 //if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
