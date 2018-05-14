@@ -84,6 +84,7 @@ function cardEventListener(event) {
 for (let i = 0; i < cardsArray.length; i++) {
     cardsArray[i].addEventListener("click", cardEventListener);
     cardsArray[i].addEventListener("click", increaseMoveCounterFunc);
+    cardsArray[i].addEventListener("click", starsDisplayChange);
 };
 
 function addToListOpenedCards(event) {
@@ -112,4 +113,26 @@ function increaseMoveCounterFunc () {
     document.querySelector("span").textContent = moves;
 }
 
+let starsArray = document.querySelectorAll(".stars li");
+//remove stars as move counter increases
+function starsDisplayChange () {
+if (moves <= 12) {
+    //display 3 stars
+    } else if (moves > 12 && moves <= 20) {
+        //display 2 stars
+        let stars = document.getElementsByClassName("star");
+        starsArray[0].remove(stars);
+    } else {
+        //display 1 star
+        let stars = document.getElementsByClassName("star");
+        starsArray[0].remove(stars);
+        starsArray[1].remove(stars);
+    }
+}
+
 //if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+function finalScoreModal () {
+    if (matchedCardsArray.length === 16) {
+        //create modal
+    }
+}
