@@ -6,6 +6,7 @@ let cardsArray = [...card];
 let moves = 0;
 let stars = document.getElementsByClassName("star");
 let starsArray = document.querySelectorAll(".stars li");
+let timer = document.querySelector(".timer");
 
 //arrays to hold matching and non-matching cards
 let openedCardsArray = [];
@@ -20,7 +21,7 @@ let matchedCardsArray = [];
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length,
+    let currentIndex = array.length,
         temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
@@ -56,6 +57,7 @@ function flipCard(theCardSelected) {
 }
 
 function cardEventListener(event) {
+    startTimer();
     flipCard(event.target);
     //add the card to a *list* of "open" cards
     if (event.target.classList.contains('card') && openedCardsArray.length < 2) {
@@ -111,17 +113,13 @@ function trackMatchedCards() {
     matchedCardsArray.push(openedCardsArray[0]);
     matchedCardsArray.push(openedCardsArray[1]);
     openedCardsArray = [];
+    finalScoreModal(); 
 }
 
 //increment the move counter and display it on the page
 function increaseMoveCounterFunc () {
     moves++;
     document.querySelector("span").textContent = moves;
-    if(moves == 1){
-        second = 0;
-        minute = 0; 
-        startTimer();
-    }
 }
 
 //remove stars as move counter increases
@@ -141,6 +139,8 @@ if (moves <= 12) {
 //reset deck, openCardsArray, matchedCardsArray, timer, moves and stars when user clicks reset button
 document.querySelector(".restart").addEventListener("click", resetGame);
 function resetGame() {
+    //reshuffle cards
+    putShuffledCardsOnDeck();
     //put all stars back
     starsArray[0].classList.remove("noshowStar");
     starsArray[1].classList.remove("noshowStar");
@@ -155,31 +155,70 @@ function resetGame() {
     second = 0;
     minute = 0; 
     hour = 0;
-    var timer = document.querySelector(".timer");
+    let timer = document.querySelector(".timer");
     timer.innerHTML = "0 mins 0 secs";
     clearInterval(interval);
     //turn over all cards
-    // cardsArray.classList.remove("open", "show");
+    for (var i = 0; i < cardsArray.length; i++){
+        cardsArray[i].classList.remove("show", "open", "match", "disabled");
+    }
+
+
+    // document.getElementsByClassName("card").classList.remove("match", "disabled", "open", "show");
 }
 
+
 //timer
-var second = 0, minute = 0;
-var timer = document.querySelector(".timer");
-var interval;
+let second = 0, minute = 0;
+let interval;
+let timerRunning = false;
+
 function startTimer(){
-    interval = setInterval(function(){
-        timer.innerHTML = minute+" mins "+second+" secs";
-        second++;
-        if(second == 60){
-            minute++;
-            second=0;
-        }
-    },1000);
+    if (!timerRunning) {
+        timerRunning = true;
+        second = 0;
+        minute = 0; 
+        interval = setInterval(function(){
+            second++;
+            timer.innerHTML = minute+" mins "+second+" secs";
+            if(second == 60){
+                minute++;
+                second=0;
+            }
+        },1000);
+    }
+}
+
+function stopTimer () {
+    if (timerRunning) {
+        timerRunning = false;
+        clearInterval(interval);
+    }
 }
 
 //if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 function finalScoreModal () {
-    if (matchedCardsArray.length === 16) {
-        //create modal
+    if (matchedCardsArray.length === 2) {
+        setTimeout(function delayModalPopup () {
+            document.getElementById("modal").style.display = "block";
+        }, 1000);
+        //get results from moves, stars and timer to display in modal
+        document.getElementsByClassName("finalMoves")[0].innerHTML = moves;
+        document.getElementsByClassName("starRating")[0].innerHTML = stars.innerHTML;
+        document.getElementsByClassName("totalTime")[0].innerHTML = timer.innerHTML;
+        stopTimer();
+        //close the modal
+        let span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    }
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
 }
