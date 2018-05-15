@@ -87,12 +87,14 @@ function cardEventListener(event) {
 //set up the event listener for a card if it is clicked
 for (let i = 0; i < cardsArray.length; i++) {
     cardsArray[i].addEventListener("click", cardEventListener);
-    cardsArray[i].addEventListener("click", increaseMoveCounterFunc);
     cardsArray[i].addEventListener("click", starsDisplayChange);
 };
 
 function addToListOpenedCards(event) {
     openedCardsArray.push(event.target);
+    if (openedCardsArray.length === 2) {
+        increaseMoveCounterFunc();
+    }
 }
 
 function removeOpenedClasses() {
@@ -102,8 +104,8 @@ function removeOpenedClasses() {
 }
 
 function trackMatchedCards() {
-    openedCardsArray[0].classList.add("match", "noshowStar");
-    openedCardsArray[1].classList.add("match", "noshowStar");
+    openedCardsArray[0].classList.add("match", "disabled");
+    openedCardsArray[1].classList.add("match", "disabled");
     openedCardsArray[0].classList.remove("show", "open");
     openedCardsArray[1].classList.remove("show", "open");
     matchedCardsArray.push(openedCardsArray[0]);
@@ -147,6 +149,9 @@ function resetGame() {
     //turn over all cards
     cardsArray.classList.remove("open", "show");
 }
+
+//timer
+
 
 //if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 function finalScoreModal () {

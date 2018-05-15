@@ -112,12 +112,15 @@ h1 {
     float: right;
     cursor: pointer;
 }
+.score-panel .timer {
+    margin-left: 50px;
+}
 
 /*
  * Styles for Stars
  */
 
-.noshowStars {
+.noshowStar {
 	pointer-events: none;
 	visibility: hidden;
 }
