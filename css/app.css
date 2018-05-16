@@ -117,15 +117,6 @@ h1 {
 }
 
 /*
- * Styles for Stars
- */
-
-.noshowStar {
-	pointer-events: none;
-	visibility: hidden;
-}
-
-/*
  * Modal
  */
 
@@ -157,4 +148,5 @@ h1 {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }

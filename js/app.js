@@ -84,12 +84,12 @@ function cardEventListener(event) {
             }, 1000);
         }
     }
+    starsDisplayChange();
 };
 
 //set up the event listener for a card if it is clicked
 for (let i = 0; i < cardsArray.length; i++) {
     cardsArray[i].addEventListener("click", cardEventListener);
-    cardsArray[i].addEventListener("click", starsDisplayChange);
 };
 
 function addToListOpenedCards(event) {
@@ -113,31 +113,35 @@ function trackMatchedCards() {
     matchedCardsArray.push(openedCardsArray[0]);
     matchedCardsArray.push(openedCardsArray[1]);
     openedCardsArray = [];
-    finalScoreModal(); 
+    finalScoreModal();
 }
 
 //increment the move counter and display it on the page
-function increaseMoveCounterFunc () {
+function increaseMoveCounterFunc() {
     moves++;
     document.querySelector("span").textContent = moves;
 }
 
 //remove stars as move counter increases
-function starsDisplayChange () {
-if (moves <= 12) {
-    //display 3 stars
-    } else if (moves > 12 && moves <= 20) {
+function starsDisplayChange() {
+    if (moves < 12) {
+        //display 3 stars
+    } else if (moves >= 12 && moves <= 20) {
         //display 2 stars
-        starsArray[0].classList.add("noshowStar");
+        starsArray[0].childNodes[0].classList.remove("fa-star");
+        starsArray[0].childNodes[0].classList.add("fa-star-o");
     } else {
         //display 1 star
-        starsArray[0].classList.add("noshowStar");
-        starsArray[1].classList.add("noshowStar");
+        starsArray[0].childNodes[0].classList.remove("fa-star");
+        starsArray[0].childNodes[0].classList.add("fa-star-o");
+        starsArray[1].childNodes[0].classList.remove("fa-star");
+        starsArray[1].childNodes[0].classList.add("fa-star-o");
     }
 }
 
 //reset deck, openCardsArray, matchedCardsArray, timer, moves and stars when user clicks reset button
 document.querySelector(".restart").addEventListener("click", resetGame);
+
 function resetGame() {
     //reshuffle cards
     putShuffledCardsOnDeck();
@@ -153,43 +157,40 @@ function resetGame() {
     openedCardsArray = [];
     //reset timer
     second = 0;
-    minute = 0; 
+    minute = 0;
     hour = 0;
     let timer = document.querySelector(".timer");
     timer.innerHTML = "0 mins 0 secs";
     clearInterval(interval);
     //turn over all cards
-    for (var i = 0; i < cardsArray.length; i++){
+    for (var i = 0; i < cardsArray.length; i++) {
         cardsArray[i].classList.remove("show", "open", "match", "disabled");
     }
-
-
-    // document.getElementsByClassName("card").classList.remove("match", "disabled", "open", "show");
 }
 
-
 //timer
-let second = 0, minute = 0;
+let second = 0,
+    minute = 0;
 let interval;
 let timerRunning = false;
 
-function startTimer(){
+function startTimer() {
     if (!timerRunning) {
         timerRunning = true;
         second = 0;
-        minute = 0; 
-        interval = setInterval(function(){
+        minute = 0;
+        interval = setInterval(function () {
             second++;
-            timer.innerHTML = minute+" mins "+second+" secs";
-            if(second == 60){
+            timer.innerHTML = minute + " mins " + second + " secs";
+            if (second == 60) {
                 minute++;
-                second=0;
+                second = 0;
             }
-        },1000);
+        }, 1000);
     }
 }
 
-function stopTimer () {
+function stopTimer() {
     if (timerRunning) {
         timerRunning = false;
         clearInterval(interval);
@@ -197,27 +198,28 @@ function stopTimer () {
 }
 
 //if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
-function finalScoreModal () {
+function finalScoreModal() {
     if (matchedCardsArray.length === 2) {
-        setTimeout(function delayModalPopup () {
+        setTimeout(function delayModalPopup() {
             document.getElementById("modal").style.display = "block";
         }, 1000);
         //get results from moves, stars and timer to display in modal
         document.getElementsByClassName("finalMoves")[0].innerHTML = moves;
-        document.getElementsByClassName("starRating")[0].innerHTML = stars.innerHTML;
+        let starCount = document.getElementsByClassName("fa-star").length;
+        document.getElementsByClassName("starRating")[0].innerHTML = starCount;
         document.getElementsByClassName("totalTime")[0].innerHTML = timer.innerHTML;
         stopTimer();
         //close the modal
         let span = document.getElementsByClassName("close")[0];
         // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = "none";
         }
     }
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
