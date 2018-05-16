@@ -146,9 +146,12 @@ function resetGame() {
     //reshuffle cards
     putShuffledCardsOnDeck();
     //put all stars back
-    starsArray[0].classList.remove("noshowStar");
-    starsArray[1].classList.remove("noshowStar");
-    starsArray[2].classList.remove("noshowStar");
+    starsArray[0].childNodes[0].classList.remove("fa-star-o");
+    starsArray[0].childNodes[0].classList.add("fa-star");
+    starsArray[1].childNodes[0].classList.remove("fa-star-o");
+    starsArray[1].childNodes[0].classList.add("fa-star");
+    starsArray[2].childNodes[0].classList.remove("fa-star-o");
+    starsArray[2].childNodes[0].classList.add("fa-star");    
     //reset moves counter
     moves = 0;
     document.querySelector("span").textContent = moves;
@@ -199,7 +202,7 @@ function stopTimer() {
 
 //if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 function finalScoreModal() {
-    if (matchedCardsArray.length === 2) {
+    if (matchedCardsArray.length === 16) {
         setTimeout(function delayModalPopup() {
             document.getElementById("modal").style.display = "block";
         }, 1000);
@@ -224,3 +227,8 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+
+function playAgain () {
+    resetGame();
+    modal.style.display = "none";
+  };
