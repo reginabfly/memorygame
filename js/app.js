@@ -1,8 +1,8 @@
-//Create a list that holds all of your cards
+//list that holds all of your cards
 let card = document.getElementsByClassName("card");
 let cardsArray = [...card];
 
-//additional declarations for functions
+//declarations for functions
 let moves = 0;
 let stars = document.getElementsByClassName("star");
 let starsArray = document.querySelectorAll(".stars li");
@@ -11,13 +11,6 @@ let timer = document.querySelector(".timer");
 //arrays to hold matching and non-matching cards
 let openedCardsArray = [];
 let matchedCardsArray = [];
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -128,14 +121,14 @@ function starsDisplayChange() {
         //display 3 stars
     } else if (moves >= 12 && moves <= 20) {
         //display 2 stars
-        starsArray[0].childNodes[0].classList.remove("fa-star");
-        starsArray[0].childNodes[0].classList.add("fa-star-o");
+        starsArray[0].getElementsByTagName('i')[0].classList.remove("fa-star");
+        starsArray[0].getElementsByTagName('i')[0].classList.add("fa-star-o");
     } else {
         //display 1 star
-        starsArray[0].childNodes[0].classList.remove("fa-star");
-        starsArray[0].childNodes[0].classList.add("fa-star-o");
-        starsArray[1].childNodes[0].classList.remove("fa-star");
-        starsArray[1].childNodes[0].classList.add("fa-star-o");
+        starsArray[0].getElementsByTagName('i')[0].classList.remove("fa-star");
+        starsArray[0].getElementsByTagName('i')[0].classList.add("fa-star-o");
+        starsArray[1].getElementsByTagName('i')[0].classList.remove("fa-star");
+        starsArray[1].getElementsByTagName('i')[0].classList.add("fa-star-o");
     }
 }
 
@@ -146,12 +139,12 @@ function resetGame() {
     //reshuffle cards
     putShuffledCardsOnDeck();
     //put all stars back
-    starsArray[0].childNodes[0].classList.remove("fa-star-o");
-    starsArray[0].childNodes[0].classList.add("fa-star");
-    starsArray[1].childNodes[0].classList.remove("fa-star-o");
-    starsArray[1].childNodes[0].classList.add("fa-star");
-    starsArray[2].childNodes[0].classList.remove("fa-star-o");
-    starsArray[2].childNodes[0].classList.add("fa-star");    
+    starsArray[0].getElementsByTagName('i')[0].classList.remove("fa-star-o");
+    starsArray[0].getElementsByTagName('i')[0].classList.add("fa-star");
+    starsArray[1].getElementsByTagName('i')[0].classList.remove("fa-star-o");
+    starsArray[1].getElementsByTagName('i')[0].classList.add("fa-star");
+    starsArray[2].getElementsByTagName('i')[0].classList.remove("fa-star-o");
+    starsArray[2].getElementsByTagName('i')[0].classList.add("fa-star");
     //reset moves counter
     moves = 0;
     document.querySelector("span").textContent = moves;
@@ -166,7 +159,7 @@ function resetGame() {
     timer.innerHTML = "0 mins 0 secs";
     clearInterval(interval);
     //turn over all cards
-    for (var i = 0; i < cardsArray.length; i++) {
+    for (let i = 0; i < cardsArray.length; i++) {
         cardsArray[i].classList.remove("show", "open", "match", "disabled");
     }
 }
@@ -228,7 +221,7 @@ window.onclick = function (event) {
     }
 }
 
-function playAgain () {
+function playAgain() {
     resetGame();
     modal.style.display = "none";
-  };
+};
