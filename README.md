@@ -1,20 +1,15 @@
 # Memory Game Project
 
-## Table of Contents
+## About The Game
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+This memory game was built utilizing HTML, CSS and JavaScript. The [Font Awesome](https://fontawesome.com/) library is also used in this project for the graphics that are shown.
 
-## Instructions
+This game is a simple application that resembles the typical memory game we all played as a child. To get started, just click any of the cards to make it turn over. Then proceed to find the match. If the two cards match, then the color will turn from blue to green. If they do not match, they will both flip over, the move counter will increase and you get to try again. The goal of the game is to find all 8 matches. There is a timer that keeps track of how long it took you to complete the game. 
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Once all the matches are found, a modal will pop up alerting you of your win. It will include how many moves it took you to complete the game, your star rating and how long it took. You will then have the option to play again if you like. This game can be played on mobile devices, tablets and desktops. It is fully responsive using flexbox.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Credits
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+This project was the second project in the Front-End Web Developer Nanodegree at [Udacity.com](https://www.udacity.com/). 
 
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+You can see a live demo of this project at [designsbyregina.com](http://www.designsbyregina.com/projects/memorygame/index.html)
