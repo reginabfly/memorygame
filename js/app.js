@@ -200,10 +200,10 @@ function finalScoreModal() {
             document.getElementById("modal").style.display = "block";
         }, 1000);
         //get results from moves, stars and timer to display in modal
-        document.getElementsByClassName("finalMoves")[0].innerHTML = moves;
+        document.getElementsByClassName("final-moves")[0].innerHTML = moves;
         let starCount = document.getElementsByClassName("fa-star").length;
-        document.getElementsByClassName("starRating")[0].innerHTML = starCount;
-        document.getElementsByClassName("totalTime")[0].innerHTML = timer.innerHTML;
+        document.getElementsByClassName("star-rating")[0].innerHTML = starCount;
+        document.getElementsByClassName("total-time")[0].innerHTML = timer.innerHTML;
         stopTimer();
         //close the modal
         let span = document.getElementsByClassName("close")[0];
