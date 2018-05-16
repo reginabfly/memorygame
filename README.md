@@ -1,8 +1,8 @@
 # Memory Game Project
 
-## About The Game
-
 This memory game was built utilizing HTML, CSS and JavaScript. The [Font Awesome](https://fontawesome.com/) library is also used in this project for the graphics that are shown.
+
+## About The Game
 
 This game is a simple application that resembles the typical memory game we all played as a child. To get started, just click any of the cards to make it turn over. Then proceed to find the match. If the two cards match, then the color will turn from blue to green. If they do not match, they will both flip over, the move counter will increase and you get to try again. The goal of the game is to find all 8 matches. There is a timer that keeps track of how long it took you to complete the game. 
 
