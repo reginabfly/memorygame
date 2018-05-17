@@ -53,6 +53,7 @@ window.onload = putShuffledCardsOnDeck();
 function flipCard(theCardSelected) {
     theCardSelected.classList.toggle("open");
     theCardSelected.classList.toggle("show");
+    theCardSelected.classList.toggle("disabled");
 }
 
 function cardEventListener(event) {
@@ -99,16 +100,16 @@ function addToListOpenedCards(event) {
 }
 
 function removeOpenedClasses() {
-    openedCardsArray[0].classList.remove("open", "show");
-    openedCardsArray[1].classList.remove("open", "show");
+    openedCardsArray[0].classList.remove("open", "show", "disabled");
+    openedCardsArray[1].classList.remove("open", "show", "disabled");
     openedCardsArray = [];
 }
 
 function trackMatchedCards() {
     openedCardsArray[0].classList.add("match", "disabled");
     openedCardsArray[1].classList.add("match", "disabled");
-    openedCardsArray[0].classList.remove("show", "open");
-    openedCardsArray[1].classList.remove("show", "open");
+    openedCardsArray[0].classList.remove("show", "open", "disabled");
+    openedCardsArray[1].classList.remove("show", "open", "disabled");
     matchedCardsArray.push(openedCardsArray[0]);
     matchedCardsArray.push(openedCardsArray[1]);
     openedCardsArray = [];
