@@ -182,6 +182,7 @@ function resetGame() {
     matchedCardsArray = [];
     openedCardsArray = [];
     //reset timer
+    stopTimer();
     second = 0;
     minute = 0;
     let timer = document.querySelector(".timer");
