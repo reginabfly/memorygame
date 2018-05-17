@@ -47,6 +47,7 @@ window.onload = putShuffledCardsOnDeck();
 function flipCard(theCardSelected) {
     theCardSelected.classList.toggle("open");
     theCardSelected.classList.toggle("show");
+    theCardSelected.classList.toggle("disabled");
 }
 
 function cardEventListener(event) {
@@ -132,38 +133,6 @@ function starsDisplayChange() {
     }
 }
 
-//reset deck, openCardsArray, matchedCardsArray, timer, moves and stars when user clicks reset button
-document.querySelector(".restart").addEventListener("click", resetGame);
-
-function resetGame() {
-    //reshuffle cards
-    putShuffledCardsOnDeck();
-    //put all stars back
-    starsArray[0].getElementsByTagName('i')[0].classList.remove("fa-star-o");
-    starsArray[0].getElementsByTagName('i')[0].classList.add("fa-star");
-    starsArray[1].getElementsByTagName('i')[0].classList.remove("fa-star-o");
-    starsArray[1].getElementsByTagName('i')[0].classList.add("fa-star");
-    starsArray[2].getElementsByTagName('i')[0].classList.remove("fa-star-o");
-    starsArray[2].getElementsByTagName('i')[0].classList.add("fa-star");
-    //reset moves counter
-    moves = 0;
-    document.querySelector("span").textContent = moves;
-    //set arrays back to empty
-    matchedCardsArray = [];
-    openedCardsArray = [];
-    //reset timer
-    second = 0;
-    minute = 0;
-    hour = 0;
-    let timer = document.querySelector(".timer");
-    timer.innerHTML = "0 mins 0 secs";
-    clearInterval(interval);
-    //turn over all cards
-    for (let i = 0; i < cardsArray.length; i++) {
-        cardsArray[i].classList.remove("show", "open", "match", "disabled");
-    }
-}
-
 //timer
 let second = 0,
     minute = 0;
@@ -190,6 +159,37 @@ function stopTimer() {
     if (timerRunning) {
         timerRunning = false;
         clearInterval(interval);
+    }
+}
+
+//reset deck, openCardsArray, matchedCardsArray, timer, moves and stars when user clicks reset button
+document.querySelector(".restart").addEventListener("click", resetGame);
+
+function resetGame() {
+    //reshuffle cards
+    putShuffledCardsOnDeck();
+    //put all stars back
+    starsArray[0].getElementsByTagName('i')[0].classList.remove("fa-star-o");
+    starsArray[0].getElementsByTagName('i')[0].classList.add("fa-star");
+    starsArray[1].getElementsByTagName('i')[0].classList.remove("fa-star-o");
+    starsArray[1].getElementsByTagName('i')[0].classList.add("fa-star");
+    starsArray[2].getElementsByTagName('i')[0].classList.remove("fa-star-o");
+    starsArray[2].getElementsByTagName('i')[0].classList.add("fa-star");
+    //reset moves counter
+    moves = 0;
+    document.querySelector("span").textContent = moves;
+    //set arrays back to empty
+    matchedCardsArray = [];
+    openedCardsArray = [];
+    //reset timer
+    second = 0;
+    minute = 0;
+    let timer = document.querySelector(".timer");
+    timer.innerHTML = "0 mins 0 secs";
+    clearInterval(interval);
+    //turn over all cards
+    for (let i = 0; i < cardsArray.length; i++) {
+        cardsArray[i].classList.remove("show", "open", "match", "disabled");
     }
 }
 
