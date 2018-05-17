@@ -8,6 +8,12 @@ let stars = document.getElementsByClassName("star");
 let starsArray = document.querySelectorAll(".stars li");
 let timer = document.querySelector(".timer");
 
+//timer
+let second = 0,
+    minute = 0;
+let interval;
+let timerRunning = false;
+
 //arrays to hold matching and non-matching cards
 let openedCardsArray = [];
 let matchedCardsArray = [];
@@ -47,7 +53,6 @@ window.onload = putShuffledCardsOnDeck();
 function flipCard(theCardSelected) {
     theCardSelected.classList.toggle("open");
     theCardSelected.classList.toggle("show");
-    theCardSelected.classList.toggle("disabled");
 }
 
 function cardEventListener(event) {
@@ -132,12 +137,6 @@ function starsDisplayChange() {
         starsArray[1].getElementsByTagName('i')[0].classList.add("fa-star-o");
     }
 }
-
-//timer
-let second = 0,
-    minute = 0;
-let interval;
-let timerRunning = false;
 
 function startTimer() {
     if (!timerRunning) {
