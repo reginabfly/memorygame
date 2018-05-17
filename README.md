@@ -11,6 +11,7 @@ Once all the matches are found, a modal will pop up alerting you of your win. It
 ## Dependencies
 - [Font Awesome](https://fontawesome.com/)
 - [BootStrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+- [Google Fonts](https://fonts.google.com/)
 
 ## Credits
 
